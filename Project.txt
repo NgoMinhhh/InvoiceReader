@@ -1,13 +1,15 @@
-Purpose: Extract text from all PDFs in folders then use regex to return data and paste it into excel
+Purpose: Extract text from all PDFs in folders then use regex to return data and write it into csv
 Process:
-    1. Select folder -> get PDFs
-    2. Extract text
-    3. Run regex
-    4. Paste result into excel workbook
+    1. Prompt USER to Select folder -> get list of PDFs
+    2. Create a nested dict to save pdf name, path, text
+    3. Create a list of regex through a special class
+    4. Run loop to get matching group and update it into the nested dict
+    5. Write the nested dict to a csv file at selected folder
 
-Classes:
-    1. INV PDFs (file path, text)
-    2. INV elements(No., Date, Desc, Buyer, Amount)
+Class inv Element:
+    1. attribute (name, regex)
+    2. method(getResult)
 
-TODO list
-    1. Create a class for INV PDFs
+TODO list:
+    1. Save list of inv Element and its custom made regex into a yml file
+    2. Read yml template into Main Process
