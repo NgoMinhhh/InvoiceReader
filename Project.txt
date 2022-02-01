@@ -1,0 +1,13 @@
+Purpose: Extract text from all PDFs in folders then use regex to return data and paste it into excel
+Process:
+    1. Select folder -> get PDFs
+    2. Extract text
+    3. Run regex
+    4. Paste result into excel workbook
+
+Classes:
+    1. INV PDFs (file path, text)
+    2. INV elements(No., Date, Desc, Buyer, Amount)
+
+TODO list
+    1. Create a class for INV PDFs
