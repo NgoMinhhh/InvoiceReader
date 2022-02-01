@@ -45,16 +45,16 @@ def getAllText(path):
 
 ### Create invoice elements 
 inv_number = inv_element('Invoice Number',r'Invoice No.*\n(.*)|Invoice Number\:(\d*)')
-inv_date = inv_element('Invoice Date',r'Invoice Date\:(.*)')
+inv_date = inv_element('Invoice Date',r'Invoice Date\:\n?(.*)')
 inv_curr = inv_element('Invoice Currency',r'Amount\((\w*)')
-inv_desc = inv_element('Invoice Description',r'Amount\(.*\)\n(.*)')
-amt_beforeTax = inv_element('Amount before Tax',r'Amount\(.*\)\n.*\n(.*)')
+inv_desc = inv_element('Invoice Description',r'Amount\(.*\)\n.\n(.*)|Amount\(.*\)\n(.*)')
+amt_beforeTax = inv_element('Amount before Tax',r'Amount\(.*\)\n.*\n(\d+.*)|(\d+.*)\nOutput Tax')
 amt_tax = inv_element('Amount of Tax',r'Output Tax\s?\n(.*)')
-amt_afterTax  = inv_element('Amount after Tax',r'Total Amount in\s?\(.*\)\n(.*)')
-po_number = inv_element('PO Number', r'PO Number\:(.*)')
-buyer_name = inv_element('Buyer Name',r'To\n(.*)')
+amt_afterTax  = inv_element('Amount after Tax',r'Total Amount in\s?\(?.*\)?\n?(.*)')
+po_number = inv_element('PO Number', r'PO Number.*(.*)|PO No.*\n?(.*)')
+buyer_name = inv_element('Buyer Name',r'BILL TO PARTY.*\n(.*)|To\n(.*)')
 buyer_taxcode = inv_element(' Buyer Tax code', r'VAT No\s?\:(.*)')
-seller_name = inv_element('Seller Name', r'Account Name\s?\:\W?(.*)')
+seller_name = inv_element('Seller Name', r'REGISTERED\s?\n?OFFICE\s?.?\n?(.*)')
 seller_taxcode = inv_element('Seller Tax code',r'VAT NO\s?\:(.*)')
 
 ### Get input prompt to select folder directory

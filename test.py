@@ -45,8 +45,11 @@ invNumber = compile(regex)
 mo = invNumber.search(pdfText[1])
 
 n = regex.count('|')
-for i in range(n):
+for i in range(n+1):
+    print(f'this is i: {i}')
     if mo.group(i+1) != None:
         print(mo.group(i+1))
+        print(f'This is i+1: {i+1}')
     else:
         print('No matching result')
+        print(f'This is i+1: {i+1}')
