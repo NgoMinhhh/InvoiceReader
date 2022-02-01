@@ -58,8 +58,8 @@ seller_taxcode = inv_element('Seller Tax code',r'VAT NO\s?\:(.*)')
 Tk().withdraw() 
 folderPath = askdirectory() 
 
-## Get all the files in selected folder
-name_list = os.listdir(folderPath)
+## Get all the pdf files in selected folder
+name_list = [pdf for pdf in os.listdir(folderPath) if pdf.upper().endswith('.PDF')]
 inv_list = {}
 
 ### Create nested dict with each sub dict is the pdf
@@ -71,7 +71,6 @@ for i in name_list:
     # A loop to iterate through list of text and list of regex
     for element in inv_element.inv_element_list:  
         inv_list[i][element.name] = element.getResult(inv_list[i].get('Text'))
-        
 
 ### Write invoice data list into a csv
 ## Get header for csv
