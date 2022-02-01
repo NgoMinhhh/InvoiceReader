@@ -28,7 +28,10 @@ class inv_element:
         regex = compile(self.pattern)
         try:
             match = regex.search(text)
-            return  match.group(1)
+            if match.group(1) != None:
+                return  match.group(1)
+            else:
+                return match.group(2)
         except AttributeError:
             return None 
 
@@ -41,7 +44,7 @@ def getAllText(path):
     return text
 
 ### Create invoice elements 
-inv_number = inv_element('Invoice Number',r'Invoice Number\:(\d*)')
+inv_number = inv_element('Invoice Number',r'Invoice No.*\n(.*)|Invoice Number\:(\d*)')
 inv_date = inv_element('Invoice Date',r'Invoice Date\:(.*)')
 inv_curr = inv_element('Invoice Currency',r'Amount\((\w*)')
 inv_desc = inv_element('Invoice Description',r'Amount\(.*\)\n(.*)')
@@ -83,7 +86,7 @@ dt = datetime.datetime.now()
 csv_dt = dt.strftime('%Y%m%d %H.%M.%S')
 
 ## Write CSV and save it at user selected folder
-with open(f'{folderPath}/output {csv_dt}.csv','w',newline='') as output_csv:
+with open(f'{folderPath}/output {csv_dt}.csv','w',newline='',encoding="utf-8") as output_csv:
     w = csv.DictWriter(output_csv, headers_csv)
     w.writeheader()
     for key,val in sorted(inv_list.items()):
