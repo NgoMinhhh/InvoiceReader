@@ -86,7 +86,7 @@ dt = datetime.datetime.now()
 csv_dt = dt.strftime('%Y%m%d %H.%M.%S')
 
 ## Write CSV and save it at user selected folder
-with open(f'{folderPath}/output {csv_dt}.csv','w',newline='',encoding="utf-8") as output_csv:
+with open(f'{folderPath}/output {csv_dt}.csv','w',newline='',encoding="utf-16") as output_csv:
     w = csv.DictWriter(output_csv, headers_csv)
     w.writeheader()
     for key,val in sorted(inv_list.items()):
