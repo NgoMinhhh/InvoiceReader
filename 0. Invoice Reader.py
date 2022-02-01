@@ -23,15 +23,15 @@ class inv_element:
         self.pattern  = pattern
         self.__class__.inv_element_list.append(self)
 
-    # Compile regex object and return group 1 in matching result
+    # Compile regex object and return the first non-null group in matching result
     def getResult(self,text):
         regex = compile(self.pattern)
+        group_count = self.pattern.count('|') + 1
         try:
             match = regex.search(text)
-            if match.group(1) != None:
-                return  match.group(1)
-            else:
-                return match.group(2)
+            for i in range(group_count):
+                if match.group(i+1) != None:
+                    return  match.group(i+1)
         except AttributeError:
             return None 
 
