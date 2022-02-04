@@ -87,7 +87,7 @@ csv_dt = dt.strftime('%Y%m%d %H.%M.%S')
 
 ## Write CSV and save it at user selected folder
 with open(f'{folderPath}/output {csv_dt}.csv','w',newline='',encoding="utf-16") as output_csv:
-    w = csv.DictWriter(output_csv, headers_csv)
+    w = csv.DictWriter(output_csv, headers_csv, delimeter = '\t')
     w.writeheader()
     for key,val in sorted(inv_list.items()):
         row = {'File Name':key}
