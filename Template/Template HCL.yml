@@ -1,2 +1,0 @@
-Invoice Number: "Invoice Number[:]\d+"g
-Description: "Amount.VND.\n(.*)"g

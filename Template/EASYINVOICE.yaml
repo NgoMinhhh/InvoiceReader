@@ -1,0 +1,24 @@
+# Regex Template for Invoices issued from EASYINVOICE
+# Key
+issuer : "EASYINVOICE"
+regex_option : i
+
+# Invoice Elements
+inv_ele: 
+ - number : 'Số.*\:(.*)'
+ - date : 'Ký\s*ngày[\s\S](.*)'
+ - form : 'Mẫu\s*số.*\:(.*)'
+ - serial : 'Ký\s*hiệu.*\:(.*)'
+ - description : '1\s*\n([\s\S]*)(\n.){2}'
+ - seller_name : '(công\s*ty.*)'
+ - seller_tax_code : 'công\s*ty.*\n(.*)'
+ - buyer_name : 'Tên đơn vị.*\:(.*)'
+ - buyer_tax_code : 'Tên đơn vị.*\n.*\:(.*)'
+ - amount_before_tax : 'Cộng\s*tiền\s*hàng.*\n(.*)'
+ - amount_tax : 'tiền\s*thuế.*\n(.*)'
+ - amount_after_tax : 'Tổng\s*cộng.*\n(.*)'
+ - tax_rate : 'Thuế\s*suất\s*GTGT.*\:(.*)'
+ - tax_authority_code : 'Mã\s*của.*\:(.*)'
+ - search_code : 'Mã\s*tra.*\:(.*)'
+ - search_website : 'Trang\s*tra\s*cứu\:\s*(\S*)'
+ 
