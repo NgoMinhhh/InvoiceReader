@@ -1,15 +1,15 @@
 #### Choose a folder directory and extract text from all Invoice pdfs inside,
 #### Find invoice infos and paste them into a CSV file
 
-import os
-import fitz # This is pymupdf
-import logging
 import csv
-import itertools
 import datetime
+import logging
+import os
 from re import compile
 from tkinter import Tk
 from tkinter.filedialog import askdirectory
+
+import fitz  # This is pymupdf
 
 # For logging and debugging
 logging.basicConfig(level=logging.DEBUG,format=' %(asctime)s - %(levelname)s - %(message)s')
@@ -87,7 +87,7 @@ csv_dt = dt.strftime('%Y%m%d %H.%M.%S')
 
 ## Write CSV and save it at user selected folder
 with open(f'{folderPath}/output {csv_dt}.csv','w',newline='',encoding="utf-16") as output_csv:
-    w = csv.DictWriter(output_csv, headers_csv, delimeter = '\t')
+    w = csv.DictWriter(output_csv, headers_csv, delimiter = '\t')
     w.writeheader()
     for key,val in sorted(inv_list.items()):
         row = {'File Name':key}
