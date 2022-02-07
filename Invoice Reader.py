@@ -6,7 +6,7 @@ import datetime
 import logging
 import os
 from pathlib import Path
-from re import compile
+import re
 from tkinter import Tk, filedialog
 
 import fitz  # This is pymupdf
@@ -25,16 +25,18 @@ class inv_element:
 
     # Compile regex object and return the first non-null group in matching result
     def get_result(self,text):
-        regex = compile(self.pattern) if self.flag == None else compile(self.pattern,self.flag)
-        group_count = self.pattern.count('|') + 1
-        try:
-            match = regex.search(text)
-            for i in range(group_count):
-                if match.group(i+1) != None:
-                    return  match.group(i+1)
-        except AttributeError:
-            return None 
-
+        if self.pattern != None:
+            regex = re.compile(self.pattern) if self.flag == None else re.compile(self.pattern,re.I)
+            group_count = self.pattern.count('|') + 1
+            try:
+                match = regex.search(text)
+                for i in range(group_count):
+                    if match.group(i+1) != None:
+                        return  match.group(i+1)
+            except AttributeError:
+                return None 
+        else:
+            return None
 # Function to return a list of specific files from a specific folder path 
 def get_file_name_list(folder_path,file_type):
     upper_file_type = file_type.upper()
@@ -78,25 +80,29 @@ for pdf in pdf_name_list:
     inv_data_dict[pdf]['Path'] = os.path.join(userSelected_folder_path,pdf) #Get path
     inv_data_dict[pdf]['Text'] = get_inv_text(inv_data_dict[pdf].get('Path'))
     
-    #TODO: a detect if statement to determine which template to match regex
-    #inv_data_dict[pdf]['Provider'] = 
-    # A loop to iterate through list of text and list of regex
-    # for element in inv_element.inv_element_list:  
-    #     inv_data_dict[pdf][element.name] = element.get_result(inv_data_dict[pdf].get('Text'))
+    ## Iterate throuth the list of template to find correct template
+    for template in template_element_dict.keys():
+        if any(template_element_dict[template][0].pattern in inv_data_dict[pdf]['Text'] for template in template_element_dict.keys()):
+            inv_data_dict[pdf]['Provider'] = template_element_dict[template][0].pattern
+            # Iterate the text through regex in matched template
+            for element in template_element_dict[template][1:]:
+                inv_data_dict[pdf][element.name] = element.get_result(inv_data_dict[pdf].get('Text'))
+            break
+        else:
+            inv_data_dict[pdf]['Provider'] = 'Irrecognizable'
 
 ### Write invoice data list into a csv
 ## Get header for csv
-headers_csv = ['File Name','Path','Text']
-for element in inv_element.inv_element_list:  
-    headers_csv.append(element.name)
+csv_header = ['File Name','Path','Text']
+for element in template_element_dict[template]:
+    csv_header.append(element.name)
 
 ## Get CSV name at time created
-dt = datetime.datetime.now()
-csv_dt = dt.strftime('%Y%m%d %H.%M.%S')
+csv_name_dt = datetime.datetime.now().strftime('%Y%m%d %H.%M.%S')
 
 ## Write CSV and save it at user selected folder
-with open(f'{userSelected_folder_path}/output {csv_dt}.csv','w',newline='',encoding="utf-16") as output_csv:
-    w = csv.DictWriter(output_csv, headers_csv, delimiter = '\t')
+with open(f'{userSelected_folder_path}/output {csv_name_dt}.csv','w',newline='',encoding="utf-16") as output_csv:
+    w = csv.DictWriter(output_csv, csv_header, delimiter = '\t')
     w.writeheader()
     for key,val in sorted(inv_data_dict.items()):
         row = {'File Name':key}
