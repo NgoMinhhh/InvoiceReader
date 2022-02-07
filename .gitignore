@@ -1,3 +1,4 @@
 Sampl pdfs/
 .venv/
-test.py
+test/
+.vscode/
