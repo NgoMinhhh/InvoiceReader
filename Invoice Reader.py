@@ -82,7 +82,7 @@ for pdf in pdf_name_list:
     
     ## Iterate throuth the list of template to find correct template
     for template in template_element_dict.keys():
-        if any(template_element_dict[template][0].pattern in inv_data_dict[pdf]['Text'] for template in template_element_dict.keys()):
+        if template_element_dict[template][0].pattern in inv_data_dict[pdf]['Text']:
             inv_data_dict[pdf]['Provider'] = template_element_dict[template][0].pattern
             # Iterate the text through regex in matched template
             for element in template_element_dict[template][1:]:
