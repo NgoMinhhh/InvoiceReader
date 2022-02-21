@@ -1,9 +1,9 @@
 # YAML Template file
-# Invoice Provider: VNPT Vinaphone
+# Invoice Provider: Viettel for MINH PHU CORPORATION
 ---
 recognize_key:
   name: Provider
-  pattern: "VNPT Vinaphone"
+  pattern: invoice.tppc.com.vn
 
 inv_date:
   name: Invoice Date
@@ -11,7 +11,7 @@ inv_date:
 
 inv_number:
   name: Invoice Number
-  pattern: 'Số hóa đơn.*\:(.*)'
+  pattern: 'Số.*\:(.*)'
 
 inv_form:
   name: Invoice Form
@@ -26,12 +26,12 @@ inv_description:
 
 seller_name:
   name: Seller
-  pattern: 'Đơn vị bán hàng.*\:(.*)'
+  pattern: 'Ký bởi\:\s*(.*)'
 
 seller_tax_code:
   name: Seller Tax Code
-  pattern: 'Đơn vị bán hàng.*\n.*\:(.*)'
-  flag: re.IGNORECASE
+  pattern: 'Tax code[):\s]+(\d*)'
+  flag: re.DOTALL
 
 buyer_name:
   name: Buyer
@@ -39,30 +39,34 @@ buyer_name:
 
 buyer_tax_code:
   name: Buyer Tax Code
-  pattern: 'Tên đơn vị.*\n.*\:(.*)'
+  pattern: 'Tên đơn vị.*Tax code[):]+([\d\s]*)'
+  flag: re.DOTALL
 
 amount_before_tax:
   name: Amount Before Tax
-  pattern: '(.*)\nThuế suất GTGT'
+  pattern: '(.*)(\n.*){4}Mã số thuế'
 
 amount_tax:
   name: Tax Amount
-  pattern: 'Thuế suất GTGT.*\n.*\n(.*)'
-  flag: re.IGNORECASE
+  pattern: '(.*)(\n.*){3}Mã số thuế'
 
 amount_after_tax:
   name: Amount After Tax
-  pattern: 'Thuế suất GTGT.*\n.*\n.*\n(.*)'
+  pattern: '(.*)(\n.*){2}Mã số thuế'
 
 tax_rate:
   name: Tax Rate
-  pattern: 'Thuế suất GTGT.*\n(.*)'
+  pattern: 'Thuế\s*suất\s*GTGT.*\:(.*)'
 
 tax_authority_code:
   name: Tax Authority Code
+  pattern: 'Mã\s*của.*\:(.*)'
 
 search_code:
   name: Search Code
+  pattern: 'Mã\s*tra.*\:(.*)'
+  flag: re.IGNORECASE
 
 search_website:
   name: Search Website
+  pattern: "(http.*(.vn|.com))"
