@@ -1,13 +1,13 @@
 # YAML Template file
-# Invoice Provider: EASYINVOICE
+# Invoice Provider: Fast Invoice
 ---
 recognize_key:
   name: Provider
-  pattern: easyinvoice.com.vn
+  pattern: "www.fast.com.vn"
 
 inv_date:
   name: Invoice Date
-  pattern: 'Ký\s*ngày[\s\S](.*)'
+  pattern: "(([0]?[1-9]|[1|2][0-9]|[3][0|1])[./-]([0]?[1-9]|[1][0-2])[./-]([0-9]{4}|[0-9]{2}))"
 
 inv_number:
   name: Invoice Number
@@ -23,16 +23,14 @@ inv_serial:
 
 inv_description:
   name: Invoice Description
-  pattern: '1\s*\n([\s\S]*)(\n.){2}'
 
 seller_name:
   name: Seller
-  pattern: '(công\s*ty.*)'
-  flag: re.IGNORECASE
+  pattern: 'Đơn vị bán hàng.*\:(.*)'
 
 seller_tax_code:
   name: Seller Tax Code
-  pattern: 'công\s*ty.*\n(.*)'
+  pattern: 'Đơn vị bán hàng.*\n.*\:(.*)'
   flag: re.IGNORECASE
 
 buyer_name:
@@ -41,33 +39,33 @@ buyer_name:
 
 buyer_tax_code:
   name: Buyer Tax Code
-  pattern: 'Tên đơn vị.*\n.*\:(.*)'
+  pattern: '(?:Buyer.*Tax Code[():]+)([\d\s]*)'
+  flag: re.DOTALL
 
 amount_before_tax:
   name: Amount Before Tax
-  pattern: 'Cộng\s*tiền\s*hàng.*\n(.*)'
+  pattern: 'Total Amount.*\:\n(.*)'
 
 amount_tax:
   name: Tax Amount
-  pattern: 'tiền\s*thuế.*\n(.*)'
-  flag: re.IGNORECASE
+  pattern: 'Tiền thuế GTGT.*\n(.*)'
 
 amount_after_tax:
   name: Amount After Tax
-  pattern: 'Tổng\s*cộng.*\n(.*)'
+  pattern: 'Tổng cộng tiền thanh toán.*\:\s*\n(.*)'
 
 tax_rate:
   name: Tax Rate
-  pattern: 'Thuế\s*suất\s*GTGT.*\:(.*)'
+  pattern: 'Thuế suất GTGT.*\n(\d+\%)'
 
 tax_authority_code:
   name: Tax Authority Code
-  pattern: 'Mã\s*của.*\:(.*)'
+  pattern: 'MCQT.*\:(.*)'
 
 search_code:
   name: Search Code
-  pattern: 'Mã\s*tra.*\:(.*)'
+  pattern: 'Mã tra cứu hóa đơn.*\:(.*)'
 
 search_website:
   name: Search Website
-  pattern: 'Trang\s*tra\s*cứu\:\s*(\S*)'
+  pattern: "(http.*)"
