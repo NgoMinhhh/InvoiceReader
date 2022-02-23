@@ -1,0 +1,17 @@
+# Default Template for Invoice Reader 2.0
+---
+key:
+  pattern:
+  flag:
+
+inv_date:
+  pattern: 'Ký\s*ngày(.*)'
+
+inv_form:
+  pattern: 'Mẫu\s*số.*\:(.*)'
+
+inv_serial:
+  pattern: 'Ký\s*hiệu.*\:(.*)'
+
+inv_number:
+  pattern: 'Số.*\:(.*)'
