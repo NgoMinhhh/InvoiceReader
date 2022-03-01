@@ -1,0 +1,16 @@
+# EasyInvoice Template for Invoice Reader 2.0
+---
+key:
+  pattern: "easyinvoice.com.vn"
+
+inv_date:
+  pattern: 'Ký\s*ngày\s*(.*)'
+
+inv_form:
+  pattern: 'Mẫu\s*số.*\:(.*)'
+
+inv_serial:
+  pattern: 'Ký\s*hiệu.*\:(.*)'
+
+inv_number:
+  pattern: 'Số.*\:(.*)'
