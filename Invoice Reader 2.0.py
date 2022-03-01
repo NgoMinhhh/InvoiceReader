@@ -57,7 +57,7 @@ def main():
     # Write list of invoice to csv
     csv_header = (list(inv_list[0].__dict__.keys()))
     csv_created_time = datetime.now().strftime('%Y%m%d %H%M%S')
-    csv_file = Path(Path.cwd(),f'Output {csv_created_time}.csv')
+    csv_file = Path(selected_folder,f'Output {csv_created_time}.csv')
 
     with open(csv_file,'w',newline='',encoding='utf-16') as f:
         w = csv.writer(f,delimiter='\t')
