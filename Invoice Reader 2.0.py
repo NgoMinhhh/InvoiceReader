@@ -5,7 +5,6 @@ import re
 import sys
 from dataclasses import dataclass
 from pathlib import Path
-from pprint import pprint
 from tkinter import Tk, filedialog
 from datetime import datetime
 
@@ -47,7 +46,7 @@ def main():
             if template_regex[template][0].pattern in inv.content:
                 ## 3rd loop: iterate through invoice element regex and return match directly into invoice instance atribute
                 setattr(inv,'template',template)
-                for element in template[1:]:
+                for element in template_regex[template][1:]:
                     setattr(inv,element.name,element.get_result(inv.content))
             else: # Use default if no compatible template found
                 setattr(inv,'template','Default')
@@ -75,25 +74,29 @@ class inv_element:
 
     def get_regex(self):
         if self.flag == 'IGNORECASE':
-            regex = re.compile(self.pattern,re.I)
+            regex_ = re.compile(self.pattern,re.I)
         elif self.flag == 'DOTALL':
-            regex = re.compile(self.pattern,re.DOTALL)
+            regex_ = re.compile(self.pattern,re.DOTALL)
         elif self.flag == 'IGNORECASE | DOTALL' or self.flag == 'DOTALL | IGNORECASE':
-            regex = re.compile(self.pattern, re.I | re.DOTALL)
+            regex_ = re.compile(self.pattern, re.I | re.DOTALL)
         else:
-            regex = re.compile(self.pattern)
-        return regex
+            regex_ = re.compile(self.pattern)
+        return regex_
 
     def get_result(self,text):
-        regex = self.get_regex()
-        tempo_results = regex.search(text)
-        try:
-            for result in tempo_results.groups():
-                if result != None:
-                    return result 
-                break
-        except:
-            return 'Not Found'
+        if self.pattern != None:
+            regex = self.get_regex()
+            tempo_results = regex.search(text)
+            try:
+                for result in tempo_results.groups():
+                    if result != None:
+                        return result 
+                    break
+            except:
+                result = 'Not Found'
+        else:
+            result = ''
+        return result
 
     def __repr__(self):
         return f'Invoice Element ({self.name})'

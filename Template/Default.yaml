@@ -14,4 +14,32 @@ inv_serial:
   pattern: 'Ký\s*hiệu.*\:(.*)'
 
 inv_number:
-  pattern: 'Số.*\:(.*)'
+  pattern: 'Số.*\:(\d*)'
+
+inv_description:
+  pattern:
+
+seller_name:
+  pattern:
+  flag: IGNORECASE
+
+seller_tax_code:
+  pattern:
+
+buyer_name:
+  pattern:
+
+buyer_tax_code:
+  pattern:
+
+amount_before_tax:
+  pattern:
+
+amount_tax:
+  pattern:
+
+amount_after_tax:
+  pattern:
+
+tax_rate:
+  pattern:
