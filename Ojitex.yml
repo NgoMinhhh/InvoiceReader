@@ -1,0 +1,39 @@
+issuer: CHI NHÁNH CÔNG TY TNHH OJITEX HẢI PHÒNG TẠI BẮC NINH
+keywords:
+  - OJITEX
+fields:
+  inv_form:
+    parser: regex
+    regex: Mẫu\s*số\s*.*\:\s*(.*)
+  inv_serrial:
+    parser: regex
+    regex: Ký\s*hiệu.*\:(.*)
+  inv_number:
+    parser: regex
+    regex: Số hóa đơn.*\:\s*(\d*)
+  inv_date:
+    parser: regex
+    regex: Ký\s*ngày\D*(.*)
+  buyer_name:
+    parser: regex
+    regex: Tên đơn vị.*\:(.*)
+  amount_before_tax:
+    parser: regex
+    regex: Tổng cộng tiền thanh toán.*\n.*\n(.*)
+  amount_tax:
+    parser: regex
+    regex: Tổng cộng tiền thanh toán.*\n.*\n.*\n.*\n(.*)
+  amount_after_tax:
+    parser: regex
+    regex: Tổng cộng tiền thanh toán.*\n.*\n.*\n.*\n.*\n.*\n(.*)
+  tax_rate:
+    parser: regex
+    regex: Thuế suất GTGT.*\n.*\n(.*)
+required_fields:
+  - inv_date
+options:
+  date_formats:
+    - "%d/%m/%Y"
+  languages:
+    - vi
+  currency: VND
