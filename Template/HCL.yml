@@ -1,0 +1,32 @@
+issuer: HCL Vietnam Company Limited
+keywords:
+  - HCL
+fields:
+  doc_type:
+    parser: regex
+    regex: (INVOICE|CREDIT\s*MEMO)
+  po_number:
+    parser: regex
+    regex: PO\s*Number\s*\:(.*)
+  inv_number:
+    parser: regex
+    regex: Invoice\s*Number\s*\:[\D\s]*(\d*)
+  inv_date:
+    parser: regex
+    regex: Invoice\s*Date\s*\:\s*(.*)
+  buyer_name:
+    parser: regex
+    regex:
+      - To\:(.*)
+      - To.*\n.*\n(\s*HCL.*)
+  amount_before_tax:
+    parser: regex
+    regex: Amount\(.*\)\n.*\n([^\s]*)
+  amount_after_tax:
+    parser: regex
+    regex: ([^\s]*)\n.*\nTotal Amount in
+  currency_used_this:
+    parser: regex
+    regex: Amount\((\w*)\)
+required_fields:
+  - inv_number
