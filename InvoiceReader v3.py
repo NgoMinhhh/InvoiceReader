@@ -23,14 +23,18 @@ def main():
     templates += read_templates(
         Path.joinpath(Path.cwd(), 'Template'))
 
-    # Load pdfs and extract data
+    # get a list of valid pdf
+    valid_pdfs = list(selected_folder.glob('*.pdf' or '*.PDF'))
+    # Initilize an empty progress bar in terminal
+    progress_bar(0, len(valid_pdfs))
+    # Extract data
     output = []
-    for f in selected_folder.glob('*.pdf'):
+    for i, f in enumerate(valid_pdfs):
         res = extract_data(f, templates=templates,
                            input_module=pdfminer_wrapper)
         if res:
             output.append(res)
-        # f.close()
+            progress_bar(i+1, len(valid_pdfs))
 
     # Write result to CSV file, saved at selected folder
     output_created_time = datetime.now().strftime('%Y%m%d %H%M%S')
@@ -53,7 +57,13 @@ def main():
                 csv_items.append(v)
             w.writerow(csv_items)
     print(
-        f'Script Finished. Please head into {selected_folder} for output file.')
+        f'\n Script Finished. Please head into {selected_folder} for output file.')
+
+
+def progress_bar(progress, total):
+    percent = 100 * (progress / float(total))
+    bar = '█' * int(percent) + '-' * (100 - int(percent))
+    print(f'\r|{bar}| {percent:.2f}%', end='\r')
 
 
 if __name__ == "__main__":
