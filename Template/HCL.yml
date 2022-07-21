@@ -24,7 +24,9 @@ fields:
     regex: Amount\(.*\)\n.*\n([^\s]*)
   amount_after_tax:
     parser: regex
-    regex: ([^\s]*)\n.*\nTotal Amount in
+    regex: 
+      - Total\s*Amount\s*in.*\n.*\n\s*([0-9.,]*)
+      - ([0-9.,]*)\n.*\nTotal Amount in
   currency_used_this:
     parser: regex
     regex: Amount\((\w*)\)

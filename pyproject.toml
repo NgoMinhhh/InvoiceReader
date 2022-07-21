@@ -8,6 +8,8 @@ license = "MIT"
 [tool.poetry.dependencies]
 python = "^3.10"
 invoice2data = "^0.3.6"
+PyYAML = "^6.0"
+"pdfminer.six" = "^20220524"
 
 [tool.poetry.dev-dependencies]
 
